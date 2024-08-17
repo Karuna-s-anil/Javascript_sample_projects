@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+	<style type="text/css">
+
+		body{
+			background: linear-gradient(#FFFFE0,#90EE90);
+			height: 100vh;
+		}
+		.container-fluid{
+			margin-top: 100px;
+		}
+		.form-inline{
+			justify-content: center;
+		}
+		.h1,.h3{
+			text-align: center;
+		}
+
+		li{
+			font-size: 20px;
+			font-weight: 500;
+			
+			background-color:#90EE90 ;
+			margin: 10px ;
+			color: black;
+			border: none;
+			
+			padding: 0px 100px;
+			list-style-type: none;
+			margin-left: -30px;
+			justify-content: space-between;
+			align-items: center;
+			display: flex;
+			
+			
+		}
+		trash{     
+			display: flex;
+            align-items: center;
+            cursor: pointer;
+            background: none;
+            border: none;
+            
+            font-size: 20px;
+
+
+		}
+		p{
+			text-align: center;
+		}
+		#result{
+			font-size: 28px;
+			font-weight: bold;
+			color: red;
+		}
+
+
+
+	</style>
+</head>
+<body>
+	<div class="mx-3">
+	
+	<div class="container-fluid col-sm-12 col-lg-12 " >
+		<div class="row ">
+			<div class="col-sm-12 col-lg-12 ">
+				<h1 class="h1">LUCKY DRAW!</h1>
+			</div>
+		</div>
+		<div class="row ">
+			<div class="col-sm-12 col-lg-12 ">
+				<h3 class="h3">AMAZING PRIZES TO BE WON</h3>
+			</div>
+		</div><br>
+		<div class="row ">
+			<div class="col-sm-12 col-lg-12 form-inline">
+				<input type="text" class="form-control" name="items" id="items" placeholder="Enter a name"><br><br>
+				<button class="btn btn-info" id="btn">Add now</button>
+
+			</div>
+		</div>
+		<br>
+		<div class="row ">
+			<div class=" col-sm-12 col-lg-12 form-inline">
+
+
+		        <ul id="list" class="list">
+					
+					
+
+		     	</ul>
+		    </div>
+		</div> 
+		<div class="row">
+			<div class="col-sm-12 col-lg-12 form-inline">
+				<button class="btn btn-info" id="btn2">Check who is the Winner!</button>
+				<button class="btn btn-info" id="btn3" style="margin-left: 10px;">Clear</button>
+			</div>
+		</div> <br>
+		<div class="row">
+			<div class="col-sm-12 col-lg-12 form-inline">
+				<p id="result"></p>
+			</div>
+		</div>    	
+
+
+	</div>
+</div>
+
+
+	
+	<script type="text/javascript">
+		var items = document.getElementById('items');
+		var btn = document.getElementById('btn');
+		var list = document.getElementById('list');
+		var btn2 = document.getElementById('btn2');
+		var btn3 = document.getElementById('btn3');
+		var result = document.getElementById('result');
+
+		btn.addEventListener('click', addItemsToList);
+		
+
+		function addItemsToList() {
+			var itemInput = items.value;
+			var li = document.createElement('li');
+			li.innerText = itemInput;
+
+			list.appendChild(li);
+			items.value = "";
+			items.focus();
+
+
+			//create trash btn
+
+			var trash=document.createElement("i")
+			trash.classList.add("fa","fa-trash")
+			li.appendChild(trash)
+			
+		}
+		btn2.addEventListener('click', pickWinner);
+
+		function pickWinner() {
+			var listItems = document.querySelectorAll('#list li');
+			if (listItems.length === 0) {
+				result.innerText = "No names have been entered!";
+				result.style.visibility = "visible";
+				return;
+			}
+			var random= Math.floor(Math.random() * listItems.length);
+			var winner = listItems[random].innerText.replace('Remove', '').trim();
+			result.innerText = "The Lucky Winner is: " + winner;
+			result.style.visibility = "visible";
+		}
+
+        list.addEventListener("click",deleteItem)
+        function deleteItem(event){
+             if(event.target.classList[0]=='fa'){
+
+             	var del=event.target.parentElement;
+             	del.remove()
+             }
+
+        }
+
+        // create clear button
+
+        btn3.addEventListener("click",clearList)
+
+        function clearList(){
+        	 list.innerHTML = "";
+        	 result.innerText="";
+            
+        }
+
+
+
+	</script>
+
+
+	
+
+
+
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
